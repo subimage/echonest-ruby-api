@@ -79,6 +79,9 @@ module Echonest
       response[:images].each do |i|
         images << i[:url]
       end
+      # This server is not returning images, as Last.fm changed paths/servers.
+      # Appears Echonest is caching old URLs, so we remove them here
+      images.reject! {|url| url.index('userserve-ak.last.fm')}
       images
     end
 
